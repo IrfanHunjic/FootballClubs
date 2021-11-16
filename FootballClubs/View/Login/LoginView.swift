@@ -9,7 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol LoginViewDelegate: AnyObject {
+    func didClickLogin()
+}
+
 class LoginView: UIView {
+    public var delegate: LoginViewDelegate?
+    
     let loginButton: UIButton = {
         let loginButton = UIButton()
         loginButton.setTitle("Login", for: .normal)
@@ -19,6 +25,9 @@ class LoginView: UIView {
         loginButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15)
         loginButton.layer.borderWidth = 2.0
         loginButton.layer.borderColor = UIColor.white.cgColor
+        loginButton.addTarget(self,
+                         action: #selector(login),
+                         for: .touchUpInside)
         return loginButton
     }()
     
@@ -88,6 +97,8 @@ class LoginView: UIView {
         addSubViews()
         setupConstraints()
     }
+    
+
 }
 
 //MARK: - AddSubViews
@@ -170,5 +181,12 @@ extension LoginView {
             $0.trailing.equalToSuperview().offset(-30)
             $0.top.equalTo(passwordLabel.snp.bottom).offset(10)
         }
+    }
+}
+
+private extension LoginView {
+    @objc func login() {
+        print("Clicked login")
+        delegate?.didClickLogin()
     }
 }
