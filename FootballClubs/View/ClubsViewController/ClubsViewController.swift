@@ -28,7 +28,6 @@ class ClubsViewController: UIViewController, UICollectionViewDelegate, UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = league?.name ?? ""
-        view.backgroundColor = .white
     }
     
     override func viewDidAppear(_ animated: Bool) {

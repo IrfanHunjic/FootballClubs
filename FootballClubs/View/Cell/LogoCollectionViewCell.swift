@@ -7,19 +7,20 @@
 
 import UIKit
 import SnapKit
+import SVGKit
 
 class LogoCollectionViewCell: UICollectionViewCell {
     static let identifier = "LogoCollectionViewCell"
-    let clubNameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
-        label.textColor = .white
+        label.textColor = .label
         return label
     }()
     
-    let clubLogoImage: UIImageView = {
+    let logoImage: UIImageView = {
         let logo = UIImageView()
         logo.contentMode = .scaleAspectFit
         logo.clipsToBounds = true
@@ -28,7 +29,8 @@ class LogoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .blue
+        backgroundColor = .white
+        layer.cornerRadius = 15
         setupView()
     }
     
@@ -42,16 +44,20 @@ class LogoCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(name: String, emblemUrl: String?) {
-        clubNameLabel.text = name
-        clubLogoImage.load(urlString: emblemUrl)
+        nameLabel.text = name
+        if let image = UIImage.getImage(from: emblemUrl) {
+            logoImage.image = image
+        } else {
+            logoImage.image = #imageLiteral(resourceName: "blankEmblem")
+        }
     }
 }
 
 //MARK: - AddSubViews
 extension LogoCollectionViewCell {
     func addSubViews() {
-        addSubview(clubNameLabel)
-        addSubview(clubLogoImage)
+        addSubview(nameLabel)
+        addSubview(logoImage)
     }
 }
 
@@ -63,16 +69,16 @@ extension LogoCollectionViewCell {
     }
     
     func setupLabelConstraints() {
-        clubNameLabel.snp.makeConstraints() {
+        nameLabel.snp.makeConstraints() {
             $0.bottom.equalToSuperview()
-            $0.top.equalTo(clubLogoImage.snp.bottom)
+            $0.top.equalTo(logoImage.snp.bottom)
             $0.leading.equalToSuperview().offset(5)
             $0.trailing.equalToSuperview().offset(-5)
         }
     }
     
     func setupImageConstraints() {
-        clubLogoImage.snp.makeConstraints() {
+        logoImage.snp.makeConstraints() {
             $0.top.equalToSuperview().offset(10)
             $0.leading.equalToSuperview().offset(5)
             $0.trailing.equalToSuperview().offset(-5)
@@ -82,16 +88,19 @@ extension LogoCollectionViewCell {
     }
 }
 
-extension UIImageView {
-    func load(urlString : String?) {
-        guard let urlString = urlString,
-              let url = URL(string: urlString),
-              let data = try? Data(contentsOf: url),
-              let image = UIImage(data: data) else {
-                  return
-              }
-        DispatchQueue.main.async {
-            self.image = image
+extension UIImage {
+    static func getImage(from urlString: String?) -> UIImage? {
+        guard
+            let urlString = urlString,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url)
+        else { return nil }
+        if let receivedImage = SVGKImage(data: data) {
+            return receivedImage.uiImage
+        } else if let image = UIImage(data: data) {
+            return image
         }
+        
+        return nil
     }
 }

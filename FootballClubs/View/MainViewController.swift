@@ -26,10 +26,10 @@ class MainViewController: UIViewController {
         let profileTabVC = ProfileTabViewController()
         let settingsTabVC = SettingsTabViewController()
         
-        let homeTabItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
-        let searchTabItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-        let profileTabItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 2)
-        let settingsTabItem = UITabBarItem(tabBarSystemItem: .more, tag: 2)
+        let homeTabItem = UITabBarItem(title: "Leagues", image: #imageLiteral(resourceName: "arsenal"), tag: 0)
+        let searchTabItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1)
+        let profileTabItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle.fill"), tag: 2)
+        let settingsTabItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear.circle.fill"), tag: 2)
 
         homeTabVC.tabBarItem = homeTabItem
         searchTabVC.tabBarItem = searchTabItem

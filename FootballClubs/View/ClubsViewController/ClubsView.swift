@@ -13,6 +13,7 @@ class ClubsView: UIView {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     let loadingIndicator = UIActivityIndicatorView()
@@ -29,6 +30,7 @@ class ClubsView: UIView {
     func setupView() {
         addSubViews()
         setupConstraints()
+        backgroundColor = .secondarySystemBackground
     }
     
     func reload() {

@@ -27,7 +27,6 @@ class LeaguesViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Home"
-        view.backgroundColor = .white
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -13,6 +13,7 @@ class LeaguesView: UIView {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
@@ -28,6 +29,7 @@ class LeaguesView: UIView {
     func setupView() {
         addSubViews()
         setupConstraints()
+        backgroundColor = .secondarySystemBackground
     }
     
     func reload() {
