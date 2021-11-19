@@ -7,5 +7,7 @@ target 'FootballClubs' do
 
   # Pods for FootballClubs
   pod 'SnapKit'
+  pod 'Alamofire'
+  pod 'SVGKit'
 
 end

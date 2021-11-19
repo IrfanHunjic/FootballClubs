@@ -17,6 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewController = LoginViewController()
         let navigationViewController = UINavigationController(rootViewController: viewController)
         navigationViewController.view.backgroundColor = .white
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
         
